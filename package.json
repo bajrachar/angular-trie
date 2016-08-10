@@ -1,0 +1,31 @@
+{
+  "name": "angular-trie",
+  "version": "1.0.0",
+  "description": "A simple Trie data structure for AngularJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bajrachar/angular-trie.git"
+  },
+  "keywords": [
+    "trie",
+    "angularjs"
+  ],
+  "author": "bajrachar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bajrachar/angular-trie/issues"
+  },
+  "homepage": "https://github.com/bajrachar/angular-trie#readme",
+  "devDependencies": {
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.2",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1"
+  }
+}
