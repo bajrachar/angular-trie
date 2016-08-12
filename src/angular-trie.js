@@ -49,7 +49,7 @@ angular.module('angular.trie').factory('Trie', function(){
 					if(pos == null) {
 						cur = cur[letter] = i === word.length - 1 ? n : {};
 					} else if (!isNaN(pos)) {
-						cur = cur[letter] = {$:pos};
+						cur = cur[letter] = i < word.length - 1 ? {$:pos} : pos;
 					} else {
 						cur = cur[letter];
 

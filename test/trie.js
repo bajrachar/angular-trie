@@ -68,6 +68,11 @@ describe('Trie', function(){
 			trie.addWord('xy', 40);
 			expect(trie.getTrie().root['x']['y']['$']).toBe(40);
 		});
+
+		it('should not add $ marker if word is already present', function(){
+			trie.addWord('xyz');
+			expect(trie.getTrie().root['x']['y']['z']['$']).not.toBeDefined();
+		});
 	});
 
 	describe('suggest', function(){
