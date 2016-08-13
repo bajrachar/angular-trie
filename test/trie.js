@@ -51,32 +51,38 @@ describe('Trie', function(){
 
 		it('should add new word with default 0 frequency', function(){
 			trie.addWord('d');
-			expect(trie.getTrie().root['d']).toBe(0);
+			expect(trie.getTrie().root['d'][0]).toBe(0);
 		});
 
 		it('should add new word with provided frequency', function(){
 			trie.addWord('d',90);
-			expect(trie.getTrie().root['d']).toBe(90);
+			expect(trie.getTrie().root['d'][0]).toBe(90);
 		});
 
 		it('should add new word with existing word as substring', function(){
 			trie.addWord('ab');
-			expect(trie.getTrie().root['a']['$']).toBe(0);
+			expect(trie.getTrie().root['a']['$'][0]).toBe(0);
 		});
 
 		it('should add new word that is substring of existing word', function(){
 			trie.addWord('xy');
-			expect(trie.getTrie().root['x']['y']['$']).toBe(0);
+			expect(trie.getTrie().root['x']['y']['$'][0]).toBe(0);
 		});
 
 		it('should add new word that is substring of existing word with given frequency', function(){
 			trie.addWord('xy', 40);
-			expect(trie.getTrie().root['x']['y']['$']).toBe(40);
+			expect(trie.getTrie().root['x']['y']['$'][0]).toBe(40);
 		});
 
 		it('should not add $ marker if word is already present', function(){
 			trie.addWord('xyz');
 			expect(trie.getTrie().root['x']['y']['z']['$']).not.toBeDefined();
+		});
+
+		it('should allow to add new word with frequency and value', function(){
+			trie.addWord('def', 8, 'name');
+			expect(trie.getTrie().root['d']['e']['f'][0]).toBe(8);
+			expect(trie.getTrie().root['d']['e']['f'][1]).toBe('name');
 		});
 	});
 
