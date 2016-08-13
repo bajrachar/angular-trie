@@ -44,6 +44,11 @@ describe('Trie', function(){
 			expect(trie.getTrie().root['d']).toBeDefined();
 		});
 
+		it('should normalize text to lowercase', function(){
+			trie.addWord('D');
+			expect(trie.getTrie().root['d']).toBeDefined();
+		});
+
 		it('should add new word with default 0 frequency', function(){
 			trie.addWord('d');
 			expect(trie.getTrie().root['d']).toBe(0);
@@ -101,6 +106,16 @@ describe('Trie', function(){
 			var response = trie.suggest('ra', true);
 			expect(response.length).toBe(2);
 			expect(response.indexOf('rage')).toBe(0);
+		});
+
+		it('should return empty array if no match found', function(){
+			var response = trie.suggest('pp');
+			expect(response.length).toBe(0);
+		});
+
+		it('should not be case sensitive', function(){
+			var response = trie.suggest('Wo');
+			expect(response.length).toBe(2);
 		});
 	});
 });

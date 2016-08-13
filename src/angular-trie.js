@@ -25,21 +25,13 @@ angular.module('angular.trie').factory('Trie', function(){
 			return _trie;
 		};
 
-		// Trie.prototype.create = function(wordlist){
-		// 	for(var w in wordlist){
-		// 		var word = wordlist[w];
-		// 		addWord(word);
-		// 	}
-
-		// 	return _trie;
-		// };
-
 		Trie.prototype.loadTrieJson = function(json){
 			_trie.root = json;
 		}
 
 		var addWord = Trie.prototype.addWord = function(word, n){
 			n = n || 0;
+			word = word.toLowerCase();	// Normalize text to lowercase before adding
 			if(word && word.length > 0)
 			{
 				var cur = _trie.root;
@@ -67,9 +59,10 @@ angular.module('angular.trie').factory('Trie', function(){
 			var matched = '';
 			var pos;
 			var suggestions = [];
-			for(var c in subText)
+			var words = subText.toLowerCase();
+			for(var c in words)
 			{
-				pos = cur[subText[c]];
+				pos = cur[words[c]];
 				
 				if(pos == null){
 					pos = cur;
@@ -81,16 +74,20 @@ angular.module('angular.trie').factory('Trie', function(){
 			}
 
 			//Return all combinations of letters as suggestions
-			if(ordered){
-				var list = getAllCombinationFreq(pos, matched);
-				return list.sort(function(a,b){
-					return -1 * (a.f - b.f);  // sort using frequency - highest first
-				}).map(function(obj){
-					return obj.key;
-				});
-			}
-			else
-				return getAllCombination(pos, matched);
+			if(matched !== ''){
+				if(ordered){
+					var list = getAllCombinationFreq(pos, matched);
+					suggestions = list.sort(function(a,b){
+						return -1 * (a.f - b.f);  // sort using frequency - highest first
+					}).map(function(obj){
+						return obj.key;
+					});
+				}
+				else
+					suggestions = getAllCombination(pos, matched);
+			} 
+				
+			return suggestions;
 		};
 
 		var getAllCombination = function(node, prefix){
