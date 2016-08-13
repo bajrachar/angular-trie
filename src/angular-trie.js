@@ -60,6 +60,36 @@ angular.module('angular.trie').factory('Trie', function(){
 			}
 		};
 
+		/*
+		* Matches the given text in the Trie key and returns associated value
+		* @param {subText} - text to match
+		*/
+		Trie.prototype.match = function(subText){
+			var cur = _trie.root;
+			var pos, value, found = false;
+			var words = subText.toLowerCase();
+			for(var c in words)
+			{
+				pos = cur[words[c]];
+
+				if(pos == null){
+					pos = cur;
+					found = false;
+					break;
+				} else if (is_array(pos) && c == words.length - 1){
+					value = pos[1];
+					found = true;
+				} else if (pos['$'] && c == words.length - 1){
+					value = pos['$'][1];
+					found = true;
+				}
+
+				cur = pos;
+			}
+
+			return value;
+		};
+
 		Trie.prototype.suggest = function(subText, ordered){
 			var cur = _trie.root;
 			var matched = '';

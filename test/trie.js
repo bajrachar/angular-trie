@@ -86,6 +86,36 @@ describe('Trie', function(){
 		});
 	});
 
+	describe('match', function(){
+		var trie;
+
+		beforeEach(function(){
+			trie = new Trie();
+			trie.addWord('word',0,'value123');
+		});
+
+		it('should match the value based on word as key', function(){
+			var matched = trie.match('word');
+			expect(matched).toBe('value123');
+		});
+
+		it('should return null if no match found', function(){
+			var matched = trie.match('w');
+			expect(matched).not.toBeDefined();
+		});
+
+		it('should return for exact match only', function(){
+			var matched = trie.match('wordlonger');
+			expect(matched).not.toBeDefined();
+		});
+
+		it('should return exact match of short substring in trie', function(){
+			trie.addWord('wordlonger', 0, 'value222');
+			var matched = trie.match('word');
+			expect(matched).toBe('value123');
+		});
+	});
+
 	describe('suggest', function(){
 		var trie;
 
