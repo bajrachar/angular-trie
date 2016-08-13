@@ -31,7 +31,7 @@ angular.module('angular.trie').factory('Trie', function(){
 
 		var addWord = Trie.prototype.addWord = function(word, n){
 			n = n || 0;
-			word = word.toLowerCase();	// Normalize text to lowercase before adding
+			word = word ? word.toLowerCase() :'';	// Normalize text to lowercase before adding
 			if(word && word.length > 0)
 			{
 				var cur = _trie.root;
@@ -69,7 +69,7 @@ angular.module('angular.trie').factory('Trie', function(){
 					break;
 				}
 				
-				matched += subText[c];
+				matched += words[c];
 				cur = pos;
 			}
 
