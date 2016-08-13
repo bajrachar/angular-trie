@@ -32,7 +32,7 @@ angular.module('angular.trie').factory('Trie', function(){
 		var addWord = Trie.prototype.addWord = function(word, n){
 			n = n || 0;
 			word = word ? word.toLowerCase() :'';	// Normalize text to lowercase before adding
-			if(word && word.length > 0)
+			if(word.length > 0)
 			{
 				var cur = _trie.root;
 				for(var i = 0; i < word.length; i++){
