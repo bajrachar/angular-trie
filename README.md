@@ -22,3 +22,27 @@ angular.module('myModule').controller('MainCtrl', ['$scope, Trie', function($sco
 }]);
 ```
 
+A new word can be added to the Trie structure by using addWord call -
+
+```javascript
+trie.addWord('rat');
+```
+
+You can also optionally associate a frequency and value with the word -
+
+```javascript
+trie.addWord('rat', 3, 'A0123');
+```
+
+After populating the trie data structure, you can get suggestions for words by using the suggest method -
+
+```javascript
+trie.suggest('ra');
+```
+
+Also, you can get the ordered suggestions by passing the ordered flag to suggest method call -
+
+```javascript
+trie.suggest('ra', true);
+```
+
