@@ -130,9 +130,13 @@ describe('Trie', function(){
 
 		it('should suggest all combinations with complete words that are substring', function(){
 			var response = trie.suggest('ra');
-			expect(response.length).toBe(3);
-			expect(response.indexOf('rag') > -1).toBe(true);
-			expect(response.indexOf('rage') > -1).toBe(true);
+			console.log('response', response);
+			var resText = response.map(function(val){
+				return val.key;
+			});
+			expect(resText.length).toBe(3);
+			expect(resText.indexOf('rag') > -1).toBe(true);
+			expect(resText.indexOf('rage') > -1).toBe(true);
 		});
 
 		it('should rank the suggestions based on frequency', function(){
@@ -140,8 +144,11 @@ describe('Trie', function(){
 			trie.addWord('rat', 40);
 			trie.addWord('rage', 90);
 			var response = trie.suggest('ra', true);
+			var resText = response.map(function(val){
+				return val.key;
+			});
 			expect(response.length).toBe(2);
-			expect(response.indexOf('rage')).toBe(0);
+			expect(resText.indexOf('rage')).toBe(0);
 		});
 
 		it('should return empty array if no match found', function(){

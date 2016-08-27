@@ -112,11 +112,9 @@ angular.module('angular.trie').factory('Trie', function(){
 			//Return all combinations of letters as suggestions
 			if(matched !== ''){
 				if(ordered){
-					var list = getAllCombinationFreq(pos, matched);
+					var list = getAllCombination(pos, matched);
 					suggestions = list.sort(function(a,b){
 						return -1 * (a.f - b.f);  // sort using frequency - highest first
-					}).map(function(obj){
-						return obj.key;
 					});
 				}
 				else
@@ -131,31 +129,14 @@ angular.module('angular.trie').factory('Trie', function(){
 			for(var c in node)
 			{
 				if(is_array(node[c]) && c != '$')
-					list.push(prefix+c);
+					list.push({key: prefix+c, f: node[c][0], value: node[c][1]});
 				else{
 					if(c == '$')
-						list.push(prefix);
+						list.push({key: prefix, f: node[c][0], value: node[c][1]});
 					else
 						list = list.concat(getAllCombination(node[c], prefix+c));
 				}
 			}
-			return list;
-		};
-
-		var getAllCombinationFreq = function(node, prefix){
-			var list = [];
-			for(var c in node)
-			{
-				if(is_array(node[c]) && c != '$')
-					list.push({key: prefix+c, f: node[c][0]});
-				else{
-					if(c == '$')
-						list.push({key: prefix, f: node[c][0]});
-					else
-						list = list.concat(getAllCombinationFreq(node[c], prefix+c));
-				}
-			}
-
 			return list;
 		};
 

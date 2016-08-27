@@ -34,6 +34,14 @@ You can also optionally associate a frequency and value with the word -
 trie.addWord('rat', 3, 'A0123');
 ```
 
+You can also initialize the trie using a json string representing the trie structure -
+
+```javascript
+trie.loadTrieJson(jsonString);
+```
+
+A Trie structure can provide fast look-up for large datasets like a dictionary. You can create a json trie string from a file containing key/value pair using this command line tool - A [n-trie](https://github.com/bajrachar/n-trie).
+
 After populating the trie data structure, you can get suggestions for words by using the suggest method -
 
 ```javascript
