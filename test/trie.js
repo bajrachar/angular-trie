@@ -11,7 +11,7 @@ describe('Trie', function(){
 
 	describe('create', function(){
 		it('should create trie datastructure from word list', function(){
-			var t = new Trie(['a','x','d']);
+			var t = Trie.create(['a','x','d']);
 			expect(Object.keys(t.getTrie().root).length).toBe(3);
 			expect(t.getTrie().root['a']).toBeDefined();
 			expect(t.getTrie().root['x']).toBeDefined();
@@ -19,7 +19,7 @@ describe('Trie', function(){
 		});
 
 		it('should have single branch for duplicate substring', function(){
-			var t = new Trie(['wor1','wor2','wor3']);
+			var t = Trie.create(['wor1','wor2','wor3']);
 			expect(Object.keys(t.getTrie().root).length).toBe(1);
 			expect(t.getTrie().root['w']).toBeDefined();
 
@@ -31,12 +31,20 @@ describe('Trie', function(){
 
 			expect(Object.keys(t.getTrie().root['w']['o']['r']).length).toBe(3);
 		});
+
+		it('should return a new trie instance everytime', function(){
+			var t1 = Trie.create(['a','b','c']);
+			var t2 = Trie.create(['x','y','z']);
+			expect(t1).not.toBe(t2);
+			expect(t1.getTrie().root['x']).not.toBeDefined();
+			expect(t2.getTrie().root['a']).not.toBeDefined();
+		});
 	});
 
 	describe('add word', function(){
 		var trie;
 		beforeEach(function(){
-			trie = new Trie(['a','b','c','xyz']);
+			trie = Trie.create(['a','b','c','xyz']);
 		});
 
 		it('should add new word', function(){			
@@ -90,7 +98,7 @@ describe('Trie', function(){
 		var trie;
 
 		beforeEach(function(){
-			trie = new Trie();
+			trie = Trie.create();
 			trie.addWord('word',0,'value123');
 		});
 
@@ -120,7 +128,7 @@ describe('Trie', function(){
 		var trie;
 
 		beforeEach(function(){
-			trie = new Trie(['word', 'world', 'race', 'rag', 'rage']);
+			trie = Trie.create(['word', 'world', 'race', 'rag', 'rage']);
 		});
 
 		it('should suggest all combinations starting with xx', function(){
@@ -140,7 +148,7 @@ describe('Trie', function(){
 		});
 
 		it('should rank the suggestions based on frequency', function(){
-			trie = new Trie();
+			trie = Trie.create();
 			trie.addWord('rat', 40);
 			trie.addWord('rage', 90);
 			var response = trie.suggest('ra', true);

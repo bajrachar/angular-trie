@@ -11,22 +11,21 @@ angular.module('angular.trie').factory('Trie', function(){
 	var Trie;
 
 	Trie = (function(){
-		var _trie;
 
 		function Trie(wordlist){
-			_trie = {root:{}};
+			this._trie = {root:{}};
 			for(var w in wordlist){
 				var word = wordlist[w];
-				addWord(word);
+				this.addWord(word);
 			}
 		}
 
 		Trie.prototype.getTrie = function(){
-			return _trie;
+			return this._trie;
 		};
 
 		Trie.prototype.loadTrieJson = function(json){
-			_trie.root = json;
+			this._trie.root = json;
 		}
 
 		/*
@@ -40,7 +39,7 @@ angular.module('angular.trie').factory('Trie', function(){
 			word = word ? word.toLowerCase() :'';	// Normalize text to lowercase before adding
 			if(word.length > 0)
 			{
-				var cur = _trie.root;
+				var cur = this._trie.root;
 				for(var i = 0; i < word.length; i++){
 					var letter = word[i], pos = cur[word[i]];
 
@@ -65,7 +64,7 @@ angular.module('angular.trie').factory('Trie', function(){
 		* @param {subText} - text to match
 		*/
 		Trie.prototype.match = function(subText){
-			var cur = _trie.root;
+			var cur = this._trie.root;
 			var pos, value, found = false;
 			var words = subText.toLowerCase();
 			for(var c in words)
@@ -91,7 +90,7 @@ angular.module('angular.trie').factory('Trie', function(){
 		};
 
 		Trie.prototype.suggest = function(subText, ordered){
-			var cur = _trie.root;
+			var cur = this._trie.root;
 			var matched = '';
 			var pos;
 			var suggestions = [];
@@ -153,5 +152,10 @@ angular.module('angular.trie').factory('Trie', function(){
 		return Trie;
 	})();
 
-	return Trie;
+	return {
+		create: function(wordList){
+			var trie = new Trie(wordList);
+			return trie;
+		}
+	};
 });

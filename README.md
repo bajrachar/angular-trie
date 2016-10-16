@@ -18,7 +18,7 @@ After this, Trie service can be injected where you need it and a new instance of
 
 ```javascript
 angular.module('myModule').controller('MainCtrl', ['$scope, Trie', function($scope, Trie){
-	var trie = new Trie;
+	var trie = Trie.create();
 }]);
 ```
 
